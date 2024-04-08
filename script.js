@@ -59,7 +59,7 @@ function generate_number() {
     
     
     <span class="word">${words[i]}</span>&nbsp;&nbsp;
-    <span  id="cancel_word${i+1}"class="cancel hidden">X</span>
+    <span  id="cancel_word${i + 1}"class="cancel hidden">X</span>
    </button>`
     }
 
@@ -116,25 +116,44 @@ function word_selection(index) {
     } else {
         let selectedWordSpan = document.getElementById(`selected_word${selected_words_array.length + 1}`);
         let selectedSpanNum = document.getElementById(`ran_num${selected_words_array.length + 1}`);
-        selectedSpanNum.classList.add('hidden'); // Hide the random number
-        selectedWordSpan.textContent = words[index - 1];
-        selected_words_array.push(words[index - 1]);
+
 
         let cancelSpan = document.getElementById(`cancel_word${index}`);
         if (cancelSpan.classList.contains('hidden')) {
+
+            selectedSpanNum.classList.add('hidden'); // Hide the random number
+            selectedWordSpan.textContent = words[index - 1];
+            console.log(selectedWordSpan)
+            console.log(selectedSpanNum)
+            selected_words_array.push(words[index - 1]);
             cancelSpan.classList.remove('hidden');
             cancelSpan.addEventListener('click', function () {
-                // Remove the selected word and cancel button from display
-                let wordToRemove = selectedWordSpan.textContent;
-                removeWord(wordToRemove);
-                selectedWordSpan.textContent = '';
-                cancelSpan.classList.add('hidden');
-                selectedSpanNum.classList.remove('hidden'); // Show the random number
+                console.log(selectedWordSpan.textContent)
+                let word_todel=selectedWordSpan.textContent;
+                let index_todelete=selected_words_array.indexOf(word_todel)
+                console.log(index_todelete)
+                removeWord(index_todelete);
+                
             });
         }
     }
-    console.log(selected_words_array);
+    // console.log(selected_words_array);
 }
+
+
+function removeWord(index)
+{
+    if(index==-1)
+    {
+        return;
+    }
+    selected_words_array.splice(index,1);
+    console.log("remove word")
+    console.log(selected_words_array)
+
+}
+
+
 
 
 
